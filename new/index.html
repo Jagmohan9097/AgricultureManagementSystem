@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+        <title>How to get data from MySQL with AngularJS - PHP</title>
+        <script src="angular.min.js"></script>
+        
+    </head>
+    <body ng-app='myapp'>
+
+        <div ng-controller="userCtrl">
+        
+            <table border="1">
+                
+                <tr>
+                    <th>Name</th>
+                    <th></th>
+                    <th>Username</th>
+                </tr>
+                
+                <tr ng-repeat="user in users">
+                <td>{{user.fname}}</td>
+                <td>{{user.lname}}</td>
+                <td>{{user.username}}</td>
+                </tr>
+                
+            </table>
+        </div>
+        
+        <!-- Script -->
+        <script>
+        var fetch = angular.module('myapp', []);
+
+        fetch.controller('userCtrl', ['$scope', '$http', function ($scope, $http) {
+            
+            $http({
+            method: 'get',
+            url: 'getData.php'
+            }).then(function successCallback(response) {
+                $scope.users = response.data;
+            });
+
+        }]);
+
+        </script>
+    </body>
+
+</html>
